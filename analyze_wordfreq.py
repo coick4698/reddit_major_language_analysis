@@ -1,37 +1,43 @@
-# token by clean_text
-# count word_frequency by group
-# get top 100 words
-
 from collections import Counter
-from preprocess import load_and_preprocess
-import nltk
-from nltk.corpus import stopwords
+import pandas as pd
+from preprocess import load_and_preprocess_all
 
-nltk.download('stopwords')
-stop_words = set(stopwords.words('english'))
+# ✅ 전체 데이터 불러오기
+df = load_and_preprocess_all()
 
-def tokenize(text):
-    words =  text.split()
-    return [word for word in words if word not in stop_words and len(word) > 8]
+# ✅ 그룹별로 단어 빈도수 계산
+group_word_counts = {}
+for group in df['group'].unique():
+    tokens = df[df['group'] == group]['tokens'].explode()
+    counter = Counter(tokens)
+    group_word_counts[group] = counter
 
+# ✅ 각 그룹 상위 단어 출력
+for group, counter in group_word_counts.items():
+    print(f"\n🧠 Top words in {group}:")
+    for word, count in counter.most_common(10):
+        print(f"{word}: {count}")
 
-def get_word_frequencies_by_group(df):
-    group_freq = {}
-    
-    for group in df['subreddit_group'].unique():
-        texts = df[df['subreddit_group'] == group]['clean_text']
-        tokens = []
-        for text in texts:
-            tokens.extend(tokenize(text))
-        group_freq[group] = Counter(tokens)
+# ✅ 그룹 간 고유 단어 비교 함수
+def compare_focus_words(group_word_counts, top_n=100):
+    focus_words = {}
+    all_groups = list(group_word_counts.keys())
 
-    return group_freq
+    for group in all_groups:
+        other_groups = [g for g in all_groups if g != group]
+        group_top = set([word for word, _ in group_word_counts[group].most_common(top_n)])
+        others_top = set()
+        for g in other_groups:
+            others_top.update([word for word, _ in group_word_counts[g].most_common(top_n)])
+        
+        unique = group_top - others_top
+        focus_words[group] = unique
 
-if __name__ == "__main__":
-    df = load_and_preprocess("dataset/posts_samples.csv")
-    freqs = get_word_frequencies_by_group(df)
-    
-    for group, counter in freqs.items():
-        print(f"🔹 {group} Top words:")
-        print(counter.most_common(10))
-        print()
+    return focus_words
+
+# ✅ 고유 단어 비교 결과 출력
+focus = compare_focus_words(group_word_counts, top_n=100)
+
+for group, words in focus.items():
+    print(f"\n🌟 Unique words in {group}:")
+    print(', '.join(list(words)[:20]))
