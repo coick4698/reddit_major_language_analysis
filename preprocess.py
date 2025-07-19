@@ -4,22 +4,34 @@ import re
 import nltk
 from nltk.corpus import stopwords
 
+"""
+- AI used
+- exclude stepwords which are already organized in library
+"""
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
-# ✅ 텍스트 클렌징 함수
+"""
+- convert to the lowercase letters
+- delete URL
+- delete special characters
+- return pure text
+"""
 def clean_text(text):
     text = text.lower()
-    text = re.sub(r"http\S+", "", text)  # URL 제거
-    text = re.sub(r"[^a-z\s]", "", text)  # 특수문자 제거
+    text = re.sub(r"http\S+", "", text)
+    text = re.sub(r"[^a-z\s]", "", text)
     return text
 
-# ✅ 토큰화 함수
+# tokenize text
 def tokenize(text):
     tokens = text.split()
     return [t for t in tokens if t not in stop_words and len(t) > 1]
 
-# ✅ 전처리 전체 로딩
+"""
+- load preprocess
+- normalize complex posts into unified text entries
+"""
 def load_and_preprocess_all(data_dir="data"):
     dfs = []
     for filename in os.listdir(data_dir):
