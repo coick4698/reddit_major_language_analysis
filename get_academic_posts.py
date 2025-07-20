@@ -3,7 +3,7 @@ import pandas as pd
 import time
 import os
 
-
+# personal information
 CLIENT_ID = '22UOcw1-QDM1j0JZ1RIn_g'
 CLIENT_SECRET = '6rehjaMDbL9ksAuteJi9Q12kfjfljQ'
 USER_AGENT = 'reddit-major-language-analysis-script'
@@ -36,7 +36,7 @@ def fetch_posts(subreddit_name, limit=300):
         })
     return pd.DataFrame(posts)
 
-# collect whold data and save
+# fetch data(AI used)
 def fetch_all(save_dir='data'):
     os.makedirs(save_dir, exist_ok=True)
     for group, subreddit in subreddits.items():

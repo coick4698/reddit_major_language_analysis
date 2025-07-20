@@ -6,7 +6,7 @@ from nltk.corpus import stopwords
 
 """
 - AI used
-- exclude stepwords which are already organized in library
+- exclude stopwords which are already organized in library
 """
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
@@ -29,6 +29,7 @@ def tokenize(text):
     return [t for t in tokens if t not in stop_words and len(t) > 1]
 
 """
+- AI used
 - load preprocess
 - normalize complex posts into unified text entries
 """
@@ -38,9 +39,9 @@ def load_and_preprocess_all(data_dir="data"):
         if filename.endswith("_posts.csv"):
             path = os.path.join(data_dir, filename)
             df = pd.read_csv(path)
-
+            
             if 'title' not in df.columns or 'selftext' not in df.columns:
-                print(f"⚠️ Skipping {filename} (missing columns)")
+                print(f"Skipping {filename} (missing columns)")
                 continue
 
             df['text'] = df['title'].fillna('') + ' ' + df['selftext'].fillna('')
