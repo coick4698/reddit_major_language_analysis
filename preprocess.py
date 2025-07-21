@@ -12,7 +12,7 @@ nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 custom_stopwords = ['im','like','would','know','one','get','think','dont','people','could',
                     'also','ive','something','want','school','even','good','way','first',
-                    'say','free']
+                    'say','free','really','different','doesnt']
 stop_words.update(custom_stopwords)
 
 """
