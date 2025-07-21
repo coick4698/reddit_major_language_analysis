@@ -11,7 +11,8 @@ from nltk.corpus import stopwords
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 custom_stopwords = ['im','like','would','know','one','get','think','dont','people','could',
-                    'also','ive','something','want','school','even','good','way']
+                    'also','ive','something','want','school','even','good','way','first',
+                    'say','free']
 stop_words.update(custom_stopwords)
 
 """
