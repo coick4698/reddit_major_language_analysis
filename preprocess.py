@@ -5,7 +5,6 @@ import nltk
 from nltk.corpus import stopwords
 
 """
-- AI used
 - exclude stopwords which are already organized in library
 """
 nltk.download('stopwords')
@@ -33,7 +32,7 @@ def tokenize(text):
     return [t for t in tokens if t not in stop_words and len(t) > 1]
 
 """
-- AI used
+- AI partly used
 - load preprocess
 - normalize complex posts into unified text entries
 """
