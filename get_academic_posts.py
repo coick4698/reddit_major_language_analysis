@@ -36,7 +36,7 @@ def fetch_posts(subreddit_name, limit=300):
         })
     return pd.DataFrame(posts)
 
-# fetch data(AI used)
+# fetch data
 def fetch_all(save_dir='data'):
     os.makedirs(save_dir, exist_ok=True)
     for group, subreddit in subreddits.items():
