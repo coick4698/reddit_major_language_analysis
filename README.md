@@ -19,8 +19,9 @@ By examining subreddit data from STEM, Humanities, and Business communities, we 
   4. Visualized results using WordClouds and Bar Charts.
 
 ---
-```md
+
 ## File Structure
+```md
 reddit_major_language_analysis/
 │
 ├── get_academic_posts.py
