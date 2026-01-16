@@ -19,7 +19,7 @@ By examining subreddit data from STEM, Humanities, and Business communities, we 
   4. Visualized results using WordClouds and Bar Charts.
 
 ---
-
+```md
 ## File Structure
 reddit_major_language_analysis/
 │
@@ -30,7 +30,7 @@ reddit_major_language_analysis/
 │
 ├── data/
 └── README.md
-
+```
 ---
 
 ## Results(Visualising)
